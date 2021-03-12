@@ -1,0 +1,27 @@
+{
+  "name": "Gupload",
+  "version": "1.0.0",
+  "description": "A quick file uploader.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soleribbon/Gupload.git"
+  },
+  "keywords": [],
+  "author": "SoleRibbon",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^11.2.3"
+  },
+  "dependencies": {
+    "electron-builder": "^22.10.5",
+    "electron-reload": "^1.5.0",
+    "electron-updater": "^4.3.8",
+    "menubar": "^9.0.3"
+  },
+  "build": "electron-builder build --mac --win --publish never",
+  "deploy": "electron-builder build --mac --win --publish always"
+}
