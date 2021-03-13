@@ -15,7 +15,8 @@ const mb = menubar({
     
 
   },
-  icon: "IconTemplate.png", 
+  icon: "/Users/admin/Desktop/testingUpdating/IconTemplate.png", 
+  
 
       
     
@@ -23,6 +24,8 @@ const mb = menubar({
 });
 
 mb.on('ready', () => {
+  
+
   console.log('Started');
   autoUpdater.checkForUpdatesAndNotify();
 

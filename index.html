@@ -119,7 +119,7 @@
     <p id="quit" onclick="quit()">quit</p>
     <p id="version"></p>
     <script>
-      const { ipcRenderer } = require('electron');
+      const { app, ipcRenderer } = require('electron');
       const version = document.getElementById('version');
       
       ipcRenderer.send('app_version');
@@ -754,34 +754,10 @@
         document.execCommand('copy');
         document.body.removeChild(el);
 
-        
-
-   
 
       };
 
-
-
-
-
-
-        
-
-
     
-
-      
-
-
-
-        
-
-
-
-      
-
-
-      
 
 
     </script>
