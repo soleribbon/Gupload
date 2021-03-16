@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, Notification } = require('electron');
+const { app, BrowserWindow, ipcMain, Notification, dialog } = require('electron');
 const { menubar } = require('menubar');
 const { autoUpdater } = require('electron-updater');
 
@@ -30,12 +30,7 @@ mb.on('ready', () => {
 
 
 
-  // autoUpdater.setFeedURL({
-  //   provider: 'github',
-  //   owner: 'soleribbon',
-  //   repo: 'https://github.com/soleribbon/Gupload.git',
-  //   token: '282836393d7532bd631e37e2a4966997289e6056',
-  // });
+
   autoUpdater.checkForUpdatesAndNotify();
 
   const notification = {
@@ -51,8 +46,17 @@ ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() }); //reads app version and sends it to main window
 });
 
+
+autoUpdater.on('checking-for-update', () => {
+  dialog.showMessageBox({
+    message: 'CHECKING FOR UPDATES!'
+  })
+});
+
 autoUpdater.on('update-available', () => {
-  console.log('!UPDATE AVAILABLE!');
+  dialog.showMessageBox({
+    message: 'UPDATE AVAILABLE!'
+  })
 
   mb.webContents.send('update_available');
 });
