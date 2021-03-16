@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, Notification, dialog } = require('electron');
 const { menubar } = require('menubar');
 const { autoUpdater } = require('electron-updater');
+import logger from 'electron-log';
 
 
 const mb = menubar({
@@ -31,7 +32,8 @@ mb.on('ready', () => {
 
 
 
-  autoUpdater.checkForUpdatesAndNotify();
+  // autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.checkForUpdates()
 
   const notification = {
     title: 'Gupload',
@@ -47,24 +49,56 @@ ipcMain.on('app_version', (event) => {
 });
 
 
+// autoUpdater.on('checking-for-update', () => {
+//   dialog.showMessageBox({
+//     message: 'CHECKING FOR UPDATES!'
+//   })
+//   mb.webContents.send('checking-for-update');
+// });
+
+// autoUpdater.on('update-available', () => {
+//   dialog.showMessageBox({
+//     message: 'UPDATE AVAILABLE!'
+//   })
+
+//   browserWindow.webContents.send('update_available');
+// });
+// autoUpdater.on('update-downloaded', () => {
+//   dialog.showMessageBox({
+//     message: 'Update Downloaded!'
+//   })
+//   browserWindow.webContents.send('update_downloaded');
+// });
+
+// ipcMain.on('restart_app', () => {
+//   browserWindow.quitAndInstall();
+// });
+
+
+autoUpdater.channel = 'latest';
+autoUpdater.allowDowngrade = false;
+autoUpdater.logger = logger;
+autoUpdater.autoDownload = true;
+
+autoUpdater.on('update-downloaded', () => {
+  dialog.showMessageBox({
+    message: 'update Downloaded !!'
+  })
+})
+
 autoUpdater.on('checking-for-update', () => {
   dialog.showMessageBox({
-    message: 'CHECKING FOR UPDATES!'
+    message: 'CHECKING FOR UPDATES !!'
   })
-});
+})
 
 autoUpdater.on('update-available', () => {
   dialog.showMessageBox({
-    message: 'UPDATE AVAILABLE!'
+    message: ' update-available !!'
   })
+})
 
-  mb.webContents.send('update_available');
-});
-autoUpdater.on('update-downloaded', () => {
-  console.log('UPDATE DOWNLOADED');
-  mb.webContents.send('update_downloaded');
-});
+autoUpdater.on('error', (error) => {
+  autoUpdater.logger.debug(error)
+})
 
-ipcMain.on('restart_app', () => {
-  mb.quitAndInstall();
-});

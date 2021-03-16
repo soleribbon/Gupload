@@ -135,6 +135,14 @@
       console.log("NEW UPDATE AVAILABLE - DOWNLOADING NOW")
       notification.classList.remove('hidden');
     });
+
+    ipcRenderer.on('checking-for-update', () => {
+     
+      message.innerText = 'A new update is available. Downloading now...';
+      console.log("CHECKING FOR UPDATES....")
+      notification.classList.remove('hidden');
+    });
+
     ipcRenderer.on('update_downloaded', () => {
       ipcRenderer.removeAllListeners('update_downloaded');
       message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
@@ -149,7 +157,6 @@
     function restartApp() {
       ipcRenderer.send('restart_app');
     }
-
 
     
     restart()
