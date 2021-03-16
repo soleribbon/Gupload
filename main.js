@@ -26,7 +26,16 @@ const mb = menubar({
 mb.on('ready', () => {
   
 
-  console.log('Started');
+  console.log('Started, checking for updates...');
+
+
+
+  autoUpdater.setFeedURL({
+    provider: 'github',
+    owner: 'soleribbon',
+    repo: 'https://github.com/soleribbon/Gupload.git',
+    token: '282836393d7532bd631e37e2a4966997289e6056',
+  });
   autoUpdater.checkForUpdatesAndNotify();
 
   const notification = {
@@ -43,9 +52,12 @@ ipcMain.on('app_version', (event) => {
 });
 
 autoUpdater.on('update-available', () => {
+  console.log('!UPDATE AVAILABLE!');
+
   mainWindow.webContents.send('update_available');
 });
 autoUpdater.on('update-downloaded', () => {
+  console.log('UPDATE DOWNLOADED');
   mainWindow.webContents.send('update_downloaded');
 });
 

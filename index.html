@@ -10,17 +10,11 @@
     <title>Gupload</title>
    
     <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-
-
-
-    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
 
   </head>
   <body id="body">
     
-
-
 
 
     <div id="draggablearea" class="draggablearea">
@@ -92,23 +86,9 @@
             <button id="viewFilesButton">View Files</button>
             
           </div>
-          
-
-          
 
         </div>
       
-
-
-   
-
-      
-
-     
-
-
-
-
 
     </div>
     
@@ -132,12 +112,6 @@
     
     <p id="selected_server"></p>
 
-    
-
-
-
-
-
     <div id="notification" class="hidden">
       <p id="message"></p>
       <button id="close-button" onClick="closeNotification()">
@@ -158,11 +132,13 @@
     ipcRenderer.on('update_available', () => {
       ipcRenderer.removeAllListeners('update_available');
       message.innerText = 'A new update is available. Downloading now...';
+      console.log("NEW UPDATE AVAILABLE - DOWNLOADING NOW")
       notification.classList.remove('hidden');
     });
     ipcRenderer.on('update_downloaded', () => {
       ipcRenderer.removeAllListeners('update_downloaded');
       message.innerText = 'Update Downloaded. It will be installed on restart. Restart now?';
+      console.log("UPDATE DOWNLOADED")
       restartButton.classList.remove('hidden');
       notification.classList.remove('hidden');
     });
@@ -219,10 +195,6 @@
     //MAIN UPLOAD FILE FUNCTION
     const uploadFile = (file, adminCode, isMultiple, i) => {
 
-      //console.log("preset admin code: "+adminCode);
-
-      
-
       if (isMultiple){
         //don't display anything
 
@@ -263,10 +235,6 @@
        
       }
 
-
-
-  
-
       request.onreadystatechange = () => {
 
         if (request.readyState === 4 && request.status === 200) {
@@ -274,16 +242,12 @@
           console.log(request.responseText);
           let parsedCode = JSON.parse(request.responseText);
           let code = parsedCode["data"]["code"]; //for specific upload
-          //console.log("Admin Code: " + adminCode);
           let link = "gofile.io/d/"+code;
 
 
 
           if (isMultiple){
             //don't display anything
-            console.log("Uploaded file "+i);
-
-           
 
           }else{
 
@@ -314,15 +278,12 @@
             });
 
 
-            
           }
 
           
         }else if (isMultiple && request.status === 200){ //for multiples, only a 200 status code is returned, not a 4 request complete...
-
-
+          
           //don't display anything 
-
 
         }else if (request.status === 500){
           document.getElementById("draganddrop_text").innerHTML = "Error: Server updating. Please try again later.";
@@ -346,16 +307,19 @@
         }
       };
       formData.append("file", file);
-      formData.append("ac", adminCode); 
+
+      if (isMultiple){
+        formData.append("ac", adminCode);
+        
+
+      }
+
       request.send(formData);
     }; //END OF uploadFile()
 
 
-
-
-
     //-----------ONLY FOR MULTIPLE FILE UPLOADS--------------
-    const uploadFirstFile = (all_files, file, fileCount, adminCode) => {
+    const uploadFirstFile = (all_files, file, fileCount) => {
 
       var progressBar = document.getElementById("progress");
 
@@ -365,10 +329,6 @@
       
       const API_ENDPOINT = "https://"+server+".gofile.io/uploadFile";
       const request = new XMLHttpRequest();
-
-      
-      
-
 
 
       const formData = new FormData();
@@ -392,8 +352,6 @@
        
       }
 
- 
-
       request.onreadystatechange = () => {
 
 
@@ -406,7 +364,7 @@
           let parsedCode = JSON.parse(request.responseText);
           let code = parsedCode["data"]["code"]; //for specific upload
           adminCode = parsedCode["data"]["adminCode"];
-          //console.log("*Admin Code Inside Function : " + adminCode);
+          
           let link = "gofile.io/d/"+code;
 
             for (var i = 1; i < fileCount; i++){
@@ -443,12 +401,6 @@
                 document.getElementById("copyButton").style.backgroundColor = "white";           
               }, 3000);
             });
-
-            
-
-          
-
-
           
         }else if (request.status === 500){
           document.getElementById("draganddrop_text").innerHTML = "Error: Server updating. Please try again later.";
@@ -471,15 +423,9 @@
 
         }
       };
-  
-      formData.append("file", file);
-      formData.append("ac", adminCode);
-       //initial trigger that tells server to return admin code (only if doing multiple uploads)
+     
+      formData.append("file", file); //we don't set admin code because this initial upload doesn't need an admin code
       request.send(formData);
-      //console.log("RETURNING ADMIN CODE: "+ adminCode);
-      //return adminCode;
-
-
       
       }; //END OF uploadFirstFile()
 
@@ -528,15 +474,6 @@
 
         document.getElementById("file_list").style.display = "none";
 
-
-
-
-
-
-        
-
-
-
       }
 
       function unhighlight(e) {
@@ -546,11 +483,6 @@
         document.getElementById("draganddrop_text").style.display = "block"
         document.getElementById("cloud").removeAttribute("style","opacity:0.5;");
         document.getElementById("upload-image").style.display = "block";
-        
-       
-
-
-
 
       }
 
@@ -590,36 +522,17 @@
 
         fileCount = event.target.files.length;
         
-        if (fileCount > 1){ 
+        if (fileCount > 1){  //if multiple files
 
-          //multiple files
-          adminCode = "samplesamplesample";
-          //now that we have the admin code variable set, each upload will contain the same admin code until it is reset manually
-        
+         
 
-          //adminCode = uploadFirstFile(event.target.files[0], adminCode); //first upload (1 file) returns admin code - we don't need that last "isMultiple" parameter because it's a different function
+          document.getElementById("draganddrop_text").innerHTML = "Uploading files...";
+          document.getElementById("loading-gif").style.display = "block";
+          document.getElementById("upload-image").style.display = "none";
+          document.getElementById("select-files").style.display = "none";
+          document.getElementById("viewFilesButton").style.display = "none";
 
-          //console.log("AND HERE IT IS: " + adminCode);
-
-
-
-
-          function main(all_files, files, fileCount, adminCode) {
-
-            document.getElementById("draganddrop_text").innerHTML = "Uploading files...";
-            document.getElementById("loading-gif").style.display = "block";
-            document.getElementById("upload-image").style.display = "none";
-            document.getElementById("select-files").style.display = "none";
-            document.getElementById("viewFilesButton").style.display = "none";
-
-             uploadFirstFile(all_files, files, fileCount, adminCode);
-              
-              //await secondUpload(all_files, fileCount, adminCode);
-             
-
-          }
-          main(all_files, files, fileCount, adminCode);
-
+          uploadFirstFile(all_files, files, fileCount); 
     
           
         }else{
@@ -672,31 +585,23 @@
 
           //adminCode = uploadFirstFile(event.target.files[0], adminCode); //first upload (1 file) returns admin code - we don't need that last "isMultiple" parameter because it's a different function
 
-          //console.log("AND HERE IT IS: " + adminCode);
+
+          document.getElementById("draganddrop_text").innerHTML = "Uploading files...";
+          document.getElementById("progress").style.display = "block";
+          document.getElementById("loading-gif").style.display = "block";
+          document.getElementById("upload-image").style.display = "none";
+          document.getElementById("select-files").style.display = "none";
+          document.getElementById("viewFilesButton").style.display = "none";
 
 
 
-          //WORK ON THIS:
-
-          function main(all_files, files, fileCount, adminCode) {
-
-            document.getElementById("draganddrop_text").innerHTML = "Uploading files...";
-            document.getElementById("progress").style.display = "block";
-            document.getElementById("loading-gif").style.display = "block";
-            document.getElementById("upload-image").style.display = "none";
-            document.getElementById("select-files").style.display = "none";
-            document.getElementById("viewFilesButton").style.display = "none";
-
-
-
-            document.getElementById("progress").style.display = "inline";
-             uploadFirstFile(all_files, files, fileCount, adminCode);
+          document.getElementById("progress").style.display = "inline";
+          uploadFirstFile(all_files, files, fileCount);
               
-              //await secondUpload(all_files, fileCount, adminCode);
+              
              
 
-          }
-          main(all_files, files, fileCount, adminCode);
+          
 
     
           
@@ -731,15 +636,6 @@
         document.getElementById("checkmark").style.display = "none";
 
 
-
-       
-
-
-
-
-
-
-
       }
 
 
@@ -763,8 +659,6 @@
     </script>
 
 
-
-   
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
