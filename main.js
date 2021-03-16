@@ -30,12 +30,12 @@ mb.on('ready', () => {
 
 
 
-  autoUpdater.setFeedURL({
-    provider: 'github',
-    owner: 'soleribbon',
-    repo: 'https://github.com/soleribbon/Gupload.git',
-    token: '282836393d7532bd631e37e2a4966997289e6056',
-  });
+  // autoUpdater.setFeedURL({
+  //   provider: 'github',
+  //   owner: 'soleribbon',
+  //   repo: 'https://github.com/soleribbon/Gupload.git',
+  //   token: '282836393d7532bd631e37e2a4966997289e6056',
+  // });
   autoUpdater.checkForUpdatesAndNotify();
 
   const notification = {
