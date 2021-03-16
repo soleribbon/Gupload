@@ -122,9 +122,9 @@
       </button>
     </div>
 
-
     <script>
 
+    const { app, ipcRenderer } = require('electron');
     //start by checking if update available
     const notification = document.getElementById('notification');
     const message = document.getElementById('message');

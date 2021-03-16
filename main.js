@@ -1,7 +1,6 @@
 const { app, BrowserWindow, ipcMain, Notification, dialog } = require('electron');
 const { menubar } = require('menubar');
 const { autoUpdater } = require('electron-updater');
-import logger from 'electron-log';
 
 
 const mb = menubar({
@@ -77,19 +76,22 @@ ipcMain.on('app_version', (event) => {
 
 autoUpdater.channel = 'latest';
 autoUpdater.allowDowngrade = false;
-autoUpdater.logger = logger;
 autoUpdater.autoDownload = true;
 
 autoUpdater.on('update-downloaded', () => {
   dialog.showMessageBox({
     message: 'update Downloaded !!'
   })
+
+
+  ipcMain.on('app_version', (event) => {
+    event.sender.send('app_version', { version: app.getVersion() }); //reads app version and sends it to main window
+  });
 })
 
 autoUpdater.on('checking-for-update', () => {
-  dialog.showMessageBox({
-    message: 'CHECKING FOR UPDATES !!'
-  })
+  mb.webContents.send('checking-for-update');
+  
 })
 
 autoUpdater.on('update-available', () => {

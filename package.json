@@ -1,6 +1,6 @@
 {
   "name": "Gupload",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "A quick file uploader.",
   "main": "main.js",
   "scripts": {
