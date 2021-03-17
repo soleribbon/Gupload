@@ -83,7 +83,7 @@ autoUpdater.autoDownload = true;
 
 let options = {
   type: 'question',
-  buttons: ['No, thanks', 'Restart and Apply Update'],
+  buttons: ['Dismiss', 'Quit To Apply Update'],
   defaultId: 1,
   title: 'Question',
   message: 'Gupload - New Update Downloaded.',
@@ -94,8 +94,9 @@ autoUpdater.on('update-downloaded', () => {
   dialog.showMessageBox(options).then((data) => {
 
     if (data.response === 1){ //restart and apply
-      app.relaunch()
       app.quit()
+      
+      
 
     }else{
 
@@ -112,10 +113,14 @@ autoUpdater.on('checking-for-update', () => {
   
 })
 
+let options2 = {
+  type: 'question',
+  buttons: ['Dismiss'],
+  message: 'Gupload - Update Available!',
+  detail: 'Update will be automatically installed. You can close this window.',
+};
 autoUpdater.on('update-available', () => {
-  dialog.showMessageBox({
-    message: 'Gupload - Update Available! Downloading Now... (you can close this window)'
-  })
+  dialog.showMessageBox(options2);
 
   
 })
