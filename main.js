@@ -1,8 +1,9 @@
-const { app, BrowserWindow, ipcMain, Notification, dialog } = require('electron');
+const { app, ipcMain, Notification, dialog } = require('electron');
 const { menubar } = require('menubar');
 const { autoUpdater } = require('electron-updater');
-const { exists } = require('fs');
-const { exit } = require('process');
+
+
+
 
 
 const mb = menubar({
@@ -12,7 +13,8 @@ const mb = menubar({
     height: 500, 
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      enableRemoteModule: true
     },
     
 
@@ -27,6 +29,8 @@ const mb = menubar({
 
 mb.on('ready', () => {
   
+   
+  mb.showWindow();
 
   console.log('Started, checking for updates...');
 
@@ -39,20 +43,28 @@ mb.on('ready', () => {
 
   
 
-  //TEST IF SERVER WORKING, THEN TEST MAIN TO RENDERER COMMUNICATION
+  
 
   // autoUpdater.checkForUpdatesAndNotify();
   autoUpdater.checkForUpdates()
 
 
 
-  // your app code here
 });
 
 mb.on('after-create-window', () => { //after window is created
 
+  //mb.window.webContents.openDevTools(); //REMOVE THIS FOR PRODUCTION!!
 
   
+  
+  
+  
+  
+
+});
+
+mb.on('window-all-closed', () => {
   
 
 });
@@ -63,30 +75,6 @@ ipcMain.on('app_version', (event) => {
 });
 
 
-// autoUpdater.on('checking-for-update', () => {
-//   dialog.showMessageBox({
-//     message: 'CHECKING FOR UPDATES!'
-//   })
-//   mb.webContents.send('checking-for-update');
-// });
-
-// autoUpdater.on('update-available', () => {
-//   dialog.showMessageBox({
-//     message: 'UPDATE AVAILABLE!'
-//   })
-
-//   browserWindow.webContents.send('update_available');
-// });
-// autoUpdater.on('update-downloaded', () => {
-//   dialog.showMessageBox({
-//     message: 'Update Downloaded!'
-//   })
-//   browserWindow.webContents.send('update_downloaded');
-// });
-
-// ipcMain.on('restart_app', () => {
-//   browserWindow.quitAndInstall();
-// });
 
 
 autoUpdater.channel = 'latest';
@@ -96,22 +84,19 @@ autoUpdater.autoDownload = true;
 
 let options = {
   type: 'question',
-  buttons: ['Dismiss', 'Quit To Apply Update'],
-  defaultId: 1,
+  buttons: ['Okay'],
+  defaultId: 0,
   title: 'Question',
   message: 'Gupload - New Update Downloaded.',
-  detail: 'Would you like to restart and apply the update?',
+  detail: 'Please restart for updates to take effect!',
 };
 
 autoUpdater.on('update-downloaded', () => {
   dialog.showMessageBox(options).then((data) => {
 
-    if (data.response === 1){ //restart and apply
-      mb.window.webContents.send('close');
-      
-
-      
-      
+    if (data.response === 0){ //restart and apply
+      mb.showWindow();
+ 
 
     }else{
 

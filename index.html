@@ -88,15 +88,8 @@
     <p id="version"></p>
     <script>
     
-      const { app, ipcRenderer } = require('electron');
-     ;
-
-      const version = document.getElementById('version');
-
-      ipcRenderer.on('close', function(event){ 
-
-        //do something when quit and apply update button clicked
-      });
+      const { ipcRenderer } = require('electron');
+     
       
       ipcRenderer.send('app_version');
       ipcRenderer.on('app_version', (event, arg) => {
