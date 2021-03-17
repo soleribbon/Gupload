@@ -2,10 +2,6 @@ const { app, ipcMain, Notification, dialog } = require('electron');
 const { menubar } = require('menubar');
 const { autoUpdater } = require('electron-updater');
 
-
-
-
-
 const mb = menubar({
 	browserWindow: { 
 
@@ -21,9 +17,6 @@ const mb = menubar({
   },
   icon: "/Users/admin/Desktop/testingUpdating/IconTemplate.png", 
   
-
-      
-    
 
 });
 
@@ -55,13 +48,7 @@ mb.on('ready', () => {
 mb.on('after-create-window', () => { //after window is created
 
   //mb.window.webContents.openDevTools(); //REMOVE THIS FOR PRODUCTION!!
-
   
-  
-  
-  
-  
-
 });
 
 mb.on('window-all-closed', () => {
@@ -73,8 +60,6 @@ ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() }); //reads app version and sends it to main window
   
 });
-
-
 
 
 autoUpdater.channel = 'latest';
@@ -109,11 +94,9 @@ autoUpdater.on('update-downloaded', () => {
   });
 })
 
-autoUpdater.on('checking-for-update', () => {
+autoUpdater.on('checking-for-update', () => { 
 
-
-  
-
+  //anything to run when checking for updates? nope
   
 })
 
@@ -135,4 +118,3 @@ autoUpdater.on('error', (error) => {
 
 
 
-  // let response = dialog.showMessageBox(options)

@@ -116,8 +116,6 @@
     <script>
 
 
-    
-
 // FOR EXPIREMENTING WITH DISPLAY UPDATES
     // const { ipcRenderer } = require('electron')
 
@@ -520,13 +518,9 @@
 
         }
 
-        
-
         fileCount = event.target.files.length;
         
         if (fileCount > 1){  //if multiple files
-
-         
 
           document.getElementById("draganddrop_text").innerHTML = "Uploading files...";
           document.getElementById("loading-gif").style.display = "block";
@@ -544,11 +538,7 @@
 
         }
 
-
-
-      });
-
-      
+      });    
 
       dropArea.addEventListener('drop', function(e){
         restart();
@@ -556,10 +546,6 @@
 
         all_files = e.dataTransfer.files;
         files = e.dataTransfer.files[0];
-
-
-       
-
 
 
         file_list_div = document.getElementById("file_list")
@@ -573,8 +559,6 @@
           file_list_div.appendChild(element);
 
         }
-
-        
 
         fileCount = e.dataTransfer.files.length;
         
@@ -600,12 +584,6 @@
           document.getElementById("progress").style.display = "inline";
           uploadFirstFile(all_files, files, fileCount);
               
-              
-             
-
-          
-
-    
           
         }else{
           //just one file
@@ -615,10 +593,6 @@
         
         
       });
-
-
-
-
 
       function restart(){
 
@@ -655,12 +629,7 @@
 
       };
 
-    
-
-
     </script>
-
-
 
     <!-- You can also require other files to run in this process -->
     <script src="./renderer.js"></script>
