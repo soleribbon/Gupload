@@ -80,9 +80,8 @@ autoUpdater.autoDownload = true;
 
 autoUpdater.on('update-downloaded', () => {
   dialog.showMessageBox({
-    message: 'update Downloaded !!'
+    message: 'Gupload Update Downloaded - please restart for updates to take effect.'
   })
-
 
   ipcMain.on('app_version', (event) => {
     event.sender.send('app_version', { version: app.getVersion() }); //reads app version and sends it to main window
@@ -90,13 +89,12 @@ autoUpdater.on('update-downloaded', () => {
 })
 
 autoUpdater.on('checking-for-update', () => {
-  mb.webContents.send('checking-for-update');
   
 })
 
 autoUpdater.on('update-available', () => {
   dialog.showMessageBox({
-    message: ' update-available !!'
+    message: 'Gupload Update Available!'
   })
 })
 
@@ -104,3 +102,13 @@ autoUpdater.on('error', (error) => {
   autoUpdater.logger.debug(error)
 })
 
+  // const options = {
+  //   type: 'question',
+  //   buttons: ['No, thanks', 'Restart and Apply Update'],
+  //   defaultId: 1,
+  //   title: 'Question',
+  //   message: 'Gupload - New Update Downloaded.',
+  //   detail: 'Would you like to restart and apply the update?',
+  // };
+
+  // let response = dialog.showMessageBox(options)
