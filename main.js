@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain, Notification, dialog } = require('electron');
 const { menubar } = require('menubar');
 const { autoUpdater } = require('electron-updater');
+const { exists } = require('fs');
+const { exit } = require('process');
 
 
 const mb = menubar({
@@ -78,10 +80,28 @@ autoUpdater.channel = 'latest';
 autoUpdater.allowDowngrade = false;
 autoUpdater.autoDownload = true;
 
+
+let options = {
+  type: 'question',
+  buttons: ['No, thanks', 'Restart and Apply Update'],
+  defaultId: 1,
+  title: 'Question',
+  message: 'Gupload - New Update Downloaded.',
+  detail: 'Would you like to restart and apply the update?',
+};
+
 autoUpdater.on('update-downloaded', () => {
-  dialog.showMessageBox({
-    message: 'Gupload Update Downloaded - please restart for updates to take effect.'
-  })
+  dialog.showMessageBox(options).then((data) => {
+
+    if (data.response === 1){ //restart and apply
+      app.relaunch()
+      app.quit()
+
+    }else{
+
+    }
+    
+  });
 
   ipcMain.on('app_version', (event) => {
     event.sender.send('app_version', { version: app.getVersion() }); //reads app version and sends it to main window
@@ -94,21 +114,16 @@ autoUpdater.on('checking-for-update', () => {
 
 autoUpdater.on('update-available', () => {
   dialog.showMessageBox({
-    message: 'Gupload Update Available!'
+    message: 'Gupload - Update Available! Downloading Now... (you can close this window)'
   })
+
+  
 })
 
 autoUpdater.on('error', (error) => {
   autoUpdater.logger.debug(error)
 })
 
-  // const options = {
-  //   type: 'question',
-  //   buttons: ['No, thanks', 'Restart and Apply Update'],
-  //   defaultId: 1,
-  //   title: 'Question',
-  //   message: 'Gupload - New Update Downloaded.',
-  //   detail: 'Would you like to restart and apply the update?',
-  // };
+
 
   // let response = dialog.showMessageBox(options)
