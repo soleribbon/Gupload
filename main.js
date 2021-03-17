@@ -30,23 +30,36 @@ mb.on('ready', () => {
 
   console.log('Started, checking for updates...');
 
-
-
-
-  // autoUpdater.checkForUpdatesAndNotify();
-  autoUpdater.checkForUpdates()
-
   const notification = {
     title: 'Gupload',
     body: 'GUPLOAD HAS LAUNCHED - CHECK YOUR MENU BAR'
   }
   new Notification(notification).show()
 
+
+  
+
+  //TEST IF SERVER WORKING, THEN TEST MAIN TO RENDERER COMMUNICATION
+
+  // autoUpdater.checkForUpdatesAndNotify();
+  autoUpdater.checkForUpdates()
+
+
+
   // your app code here
+});
+
+mb.on('after-create-window', () => { //after window is created
+
+
+  
+  
+
 });
 
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() }); //reads app version and sends it to main window
+  
 });
 
 
@@ -94,7 +107,9 @@ autoUpdater.on('update-downloaded', () => {
   dialog.showMessageBox(options).then((data) => {
 
     if (data.response === 1){ //restart and apply
-      app.quit()
+      mb.window.webContents.send('close');
+      
+
       
       
 
@@ -110,6 +125,10 @@ autoUpdater.on('update-downloaded', () => {
 })
 
 autoUpdater.on('checking-for-update', () => {
+
+
+  
+
   
 })
 

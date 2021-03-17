@@ -87,8 +87,16 @@
     <p id="quit" onclick="quit()">quit</p>
     <p id="version"></p>
     <script>
+    
       const { app, ipcRenderer } = require('electron');
+     ;
+
       const version = document.getElementById('version');
+
+      ipcRenderer.on('close', function(event){ 
+
+        //do something when quit and apply update button clicked
+      });
       
       ipcRenderer.send('app_version');
       ipcRenderer.on('app_version', (event, arg) => {
@@ -100,6 +108,8 @@
     
     <p id="selected_server"></p>
 
+    <!-- IF I WANT TO EVER MAKE AN IN-APP UPDATE MESSAGE -->
+    <!-- 
     <div id="notification" class="hidden">
       <p id="message"></p>
       <button id="close-button" onClick="closeNotification()">
@@ -108,10 +118,12 @@
       <button id="restart-button" onClick="restartApp()" class="hidden">
         Restart and Install
       </button>
-    </div>
+    </div> -->
 
     <script>
 
+
+    
 
 // FOR EXPIREMENTING WITH DISPLAY UPDATES
     // const { ipcRenderer } = require('electron')
@@ -168,6 +180,7 @@
     const url='https://apiv2.gofile.io/getServer';
     Http.open("GET", url);
     Http.send();
+    
 
     Http.onreadystatechange = function(){
       
@@ -177,16 +190,16 @@
 
         server_response = parsed["data"]
 
-        server = document.getElementById("selected_server").innerHTML = server_response.server
+        server = document.getElementById("selected_server").innerHTML = server_response.server;
 
 
       }
+      
 
-    }
+    };
 
     //----------------------------------
     const fileInput = document.querySelector("#file-upload");
-
 
 
     //MAIN UPLOAD FILE FUNCTION
@@ -204,7 +217,6 @@
         document.getElementById("progress").style.display = "inline";
 
       }
-
 
       const API_ENDPOINT = "https://"+server+".gofile.io/uploadFile";
       const request = new XMLHttpRequest();
