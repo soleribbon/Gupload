@@ -41,7 +41,7 @@ mb.on('ready', () => {
   // autoUpdater.checkForUpdatesAndNotify();
 
   
-  //!!!!!UNCOMMENT WHEN DONE autoUpdater.checkForUpdates(); UNCOMMENT WHEN DONE EDITING!!!!!
+  autoUpdater.checkForUpdates(); 
 
   
   
