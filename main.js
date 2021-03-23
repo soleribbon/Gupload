@@ -3,10 +3,12 @@ const { menubar } = require('menubar');
 const { autoUpdater } = require('electron-updater');
 
 const mb = menubar({
+  showDockIcon: false, //hide dock icon from the start
 	browserWindow: { 
 
     width: 400, 
-    height: 500, 
+    height: 500,
+    alwaysOnTop: true, 
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
@@ -20,10 +22,11 @@ const mb = menubar({
 
 });
 
+
 mb.on('ready', () => {
   
-   
-  mb.showWindow();
+  
+  mb.showWindow(); 
 
   console.log('Started, checking for updates...');
 
@@ -32,26 +35,30 @@ mb.on('ready', () => {
     body: 'GUPLOAD HAS LAUNCHED - CHECK YOUR MENU BAR'
   }
   new Notification(notification).show()
-
-
   
 
-  
 
   // autoUpdater.checkForUpdatesAndNotify();
-  autoUpdater.checkForUpdates()
 
-
-
-});
-
-mb.on('after-create-window', () => { //after window is created
-
-  //mb.window.webContents.openDevTools(); //REMOVE THIS FOR PRODUCTION!!
   
+  //!!!!!UNCOMMENT WHEN DONE autoUpdater.checkForUpdates(); UNCOMMENT WHEN DONE EDITING!!!!!
+
+  
+  
+  
+
 });
 
-mb.on('window-all-closed', () => {
+
+
+
+
+
+mb.on('after-hide', () => { //when window is hidden again
+
+  app.dock.hide(); //hide dock icon
+
+
   
 
 });
@@ -109,12 +116,13 @@ let options2 = {
 autoUpdater.on('update-available', () => {
   dialog.showMessageBox(options2);
 
-  
-})
+});
 
 autoUpdater.on('error', (error) => {
   autoUpdater.logger.debug(error)
-})
+});
+
+
 
 
 
