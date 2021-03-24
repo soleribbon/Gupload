@@ -3,7 +3,7 @@ const { menubar } = require('menubar');
 const { autoUpdater } = require('electron-updater');
 
 const mb = menubar({
-  showDockIcon: false, //hide dock icon from the start
+  //showDockIcon: false, //hide dock icon from the start !!ENABLE FOR FINAL VERSION
 	browserWindow: { 
 
     width: 400, 
@@ -17,7 +17,7 @@ const mb = menubar({
     
 
   },
-  icon: "/Users/admin/Desktop/testingUpdating/IconTemplate.png", 
+  icon: "./IconTemplate.png", 
   
 
 });
@@ -56,7 +56,7 @@ mb.on('ready', () => {
 
 mb.on('after-hide', () => { //when window is hidden again
 
-  app.dock.hide(); //hide dock icon
+  //app.dock.hide(); //hide dock icon !!ENABLE FOR FINAL VERSION
 
 
   
