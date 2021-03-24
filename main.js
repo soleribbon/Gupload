@@ -1,6 +1,9 @@
-const { app, ipcMain, Notification, dialog } = require('electron');
+const { app, ipcMain, Notification, dialog, Tray } = require('electron');
 const { menubar } = require('menubar');
 const { autoUpdater } = require('electron-updater');
+const path = require('path');
+
+
 
 const mb = menubar({
   //showDockIcon: false, //hide dock icon from the start !!ENABLE FOR FINAL VERSION
@@ -17,7 +20,7 @@ const mb = menubar({
     
 
   },
-  icon: "./IconTemplate.png", 
+  icon: path.join(__dirname, 'TrayIconTemplate.png'), 
   
 
 });
