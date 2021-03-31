@@ -6,7 +6,7 @@ const path = require('path');
 
 
 const mb = menubar({
-  //showDockIcon: false, //hide dock icon from the start !!ENABLE FOR FINAL VERSION
+  showDockIcon: false, //hide dock icon from the start !!ENABLE FOR FINAL VERSION
 	browserWindow: { 
 
     width: 400, 
@@ -59,7 +59,7 @@ mb.on('ready', () => {
 
 mb.on('after-hide', () => { //when window is hidden again
 
-  //app.dock.hide(); //hide dock icon !!ENABLE FOR FINAL VERSION
+  app.dock.hide(); //hide dock icon !!ENABLE FOR FINAL VERSION
 
 
   
