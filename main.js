@@ -7,6 +7,7 @@ const path = require('path');
 
 const mb = menubar({
   showDockIcon: false, //hide dock icon from the start !!ENABLE FOR FINAL VERSION
+
 	browserWindow: { 
 
     width: 400, 
@@ -16,6 +17,7 @@ const mb = menubar({
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true
+
     },
     
 
@@ -45,6 +47,9 @@ mb.on('ready', () => {
 
   
   autoUpdater.checkForUpdates(); 
+
+
+ 
 
   
   
@@ -124,7 +129,6 @@ autoUpdater.on('update-available', () => {
 autoUpdater.on('error', (error) => {
   autoUpdater.logger.debug(error)
 });
-
 
 
 

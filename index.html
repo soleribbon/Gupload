@@ -156,7 +156,8 @@
     restart()
     let server;
     let server_response;
-    let adminCode; //for multiple file uploads
+    let folderId; //for multiple file uploads
+    let guestToken;
 
 
     function quit(){
@@ -194,7 +195,7 @@
 
 
     //MAIN UPLOAD FILE FUNCTION
-    const uploadFile = (file, adminCode, isMultiple, i) => {
+    const uploadFile = (file, folderId, guestToken, isMultiple, i) => {
 
       if (isMultiple){
         //don't display anything
@@ -309,7 +310,9 @@
       formData.append("file", file);
 
       if (isMultiple){
-        formData.append("ac", adminCode);
+        formData.append("folderId", folderId);
+        formData.append("token", guestToken);
+     
         
 
       }
@@ -362,14 +365,19 @@
           console.log(request.responseText);
 
           let parsedCode = JSON.parse(request.responseText);
+
+          //console.log(parsedCode); //DELETE WHEN FINAL
+
           let code = parsedCode["data"]["code"]; //for specific upload
-          adminCode = parsedCode["data"]["adminCode"];
+          folderId = parsedCode["data"]["parentFolder"];
+          guestToken = parsedCode["data"]["guestToken"];
+
           
           let link = "gofile.io/d/"+code;
 
             for (var i = 1; i < fileCount; i++){
 
-              uploadFile(all_files[i], adminCode, true, i); //true in this case is for the variable "isMultiple"
+              uploadFile(all_files[i], folderId, guestToken, true, i); //true in this case is for the variable "isMultiple"
                
             }
             document.getElementById("loading-gif").style.display = "none"; //hide loading gif
@@ -533,8 +541,8 @@
           
         }else{
           //just one file
-          adminCode = "random";
-          uploadFile(files, adminCode, false);
+          folderId = "random";
+          uploadFile(files, folderId, false);
 
         }
 
@@ -565,7 +573,7 @@
         if (fileCount > 1){ 
 
           //multiple files
-          adminCode = "samplesamplesample";
+          folderId = "samplesamplesample";
           //now that we have the admin code variable set, each upload will contain the same admin code until it is reset manually
         
 
