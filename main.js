@@ -46,16 +46,7 @@ mb.on('ready', () => {
   // autoUpdater.checkForUpdatesAndNotify(); --- backup backup
 
   
-  // autoUpdater.checkForUpdates(); 
-
-
-  setInterval(() => {
-    autoUpdater.checkForUpdates()
-  }, 2000);   
-
-  
-  
-  
+  autoUpdater.checkForUpdates(); 
 
 });
 
