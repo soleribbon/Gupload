@@ -243,7 +243,7 @@
           console.log(request.responseText);
           let parsedCode = JSON.parse(request.responseText);
           let code = parsedCode["data"]["code"]; //for specific upload
-          let link = "gofile.io/d/"+code;
+          let link = "https://gofile.io/d/"+code;
 
 
 
@@ -373,7 +373,7 @@
           guestToken = parsedCode["data"]["guestToken"];
 
           
-          let link = "gofile.io/d/"+code;
+          let link = "https://gofile.io/d/"+code;
 
             for (var i = 1; i < fileCount; i++){
 

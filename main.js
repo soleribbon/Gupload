@@ -6,7 +6,7 @@ const path = require('path');
 
 
 const mb = menubar({
-  showDockIcon: false, //hide dock icon from the start !!ENABLE FOR FINAL VERSION
+  showDockIcon: true, //hide dock icon from the start !!ENABLE FOR FINAL VERSION
 
 	browserWindow: { 
 
