@@ -51,7 +51,7 @@ mb.on('ready', () => {
 
   // setInterval(() => {
   //   autoUpdater.checkForUpdates()
-  // }, 30000)
+  // }, 30000)   -- this is for continuous update checking every 30 minutes
 
   
   
