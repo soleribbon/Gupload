@@ -49,7 +49,9 @@ mb.on('ready', () => {
   autoUpdater.checkForUpdates(); 
 
 
- 
+  // setInterval(() => {
+  //   autoUpdater.checkForUpdates()
+  // }, 30000)
 
   
   
