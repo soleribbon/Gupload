@@ -43,15 +43,15 @@ mb.on('ready', () => {
   
 
 
-  // autoUpdater.checkForUpdatesAndNotify();
+  // autoUpdater.checkForUpdatesAndNotify(); --- backup backup
 
   
-  autoUpdater.checkForUpdates(); 
+  // autoUpdater.checkForUpdates(); 
 
 
-  // setInterval(() => {
-  //   autoUpdater.checkForUpdates()
-  // }, 30000)   -- this is for continuous update checking every 30 minutes
+  setInterval(() => {
+    autoUpdater.checkForUpdates()
+  }, 2000);   
 
   
   
