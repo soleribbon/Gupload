@@ -244,8 +244,8 @@
           console.log(request.responseText);
           let parsedCode = JSON.parse(request.responseText);
           let code = parsedCode["data"]["code"]; //for specific upload
-          let link = "https://gofile.io/d/"+code;
-          let displaylink = "gofile.io/d/"+code;
+          let link = "gofile.io/d/"+code;
+          
 
 
 
@@ -257,7 +257,7 @@
             document.getElementById("loading-gif").style.display = "none"; //hide loading gif
             document.getElementById("restartButton").style.display = "table-cell";
             document.getElementById("viewFilesButton").style.display = "table-cell"; //display restart
-            document.getElementById("draganddrop_text").innerHTML = "<p id='link'>"+displaylink+"</p>";
+            document.getElementById("draganddrop_text").innerHTML = "<p id='link'>"+link+"</p>";
 
             let full_link = "https://"+link;
             document.getElementById("viewFilesButton").setAttribute('onclick', 'require("electron").shell.openExternal("'+full_link+'")');
@@ -269,7 +269,7 @@
             //copy button handler
             document.getElementById("copyButton").style.display = "block";
             document.getElementById("copyButton").addEventListener("click", function() {
-              copyToClipboard(link);
+              copyToClipboard(full_link);
               document.getElementById("copyButton").innerHTML = "Link Copied!";
               document.getElementById("copyButton").style.backgroundColor = "#CEE8BA "; 
               var timeout;
@@ -375,8 +375,7 @@
           guestToken = parsedCode["data"]["guestToken"];
 
           
-          let link = "https://gofile.io/d/"+code;
-          let displaylink = "gofile.io/d/"+code;
+          let link = "gofile.io/d/"+code;
 
             for (var i = 1; i < fileCount; i++){
 
@@ -388,7 +387,7 @@
             document.getElementById("viewFilesButton").style.display = "table-cell";
 
 
-            document.getElementById("draganddrop_text").innerHTML = "<p id='link'>"+displaylink+"</p>";
+            document.getElementById("draganddrop_text").innerHTML = "<p id='link'>"+link+"</p>";
 
             let full_link = "https://"+link;
             document.getElementById("viewFilesButton").setAttribute('onclick', 'require("electron").shell.openExternal("'+full_link+'")');
@@ -402,7 +401,7 @@
             document.getElementById("copyButton").style.display = "block";
 
             document.getElementById("copyButton").addEventListener("click", function() {
-              copyToClipboard(link);
+              copyToClipboard(full_link);
               document.getElementById("copyButton").innerHTML = "Link Copied!";
               document.getElementById("copyButton").style.backgroundColor = "#CEE8BA "; 
               var timeout;
