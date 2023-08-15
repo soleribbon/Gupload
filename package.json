@@ -26,7 +26,7 @@
     "electron-reload": "^1.5.0",
     "electron-updater": "^4.6.1",
     "fs.promises": "^0.1.2",
-    "latest-version": "^6.0.0",
+    "latest-version": "^7.0.0",
     "menubar": "^9.1.1",
     "path": "^0.12.7",
     "remote": "^0.2.6"
