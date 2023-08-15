@@ -27,7 +27,7 @@
     "electron-updater": "^4.6.1",
     "fs.promises": "^0.1.2",
     "latest-version": "^6.0.0",
-    "menubar": "^9.1.1",
+    "menubar": "^9.3.0",
     "path": "^0.12.7",
     "remote": "^0.2.6"
   }
