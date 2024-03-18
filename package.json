@@ -16,7 +16,7 @@
   "author": "VITO SOFTWARE",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^11.5.0",
+    "electron": "^29.1.4",
     "electron-builder": "^22.14.5",
     "electron-builder-notarize": "^1.2.0",
     "electron-notarize": "^1.1.1"
@@ -24,7 +24,7 @@
   "dependencies": {
     "@electron/remote": "^1.2.2",
     "electron-reload": "^1.5.0",
-    "electron-updater": "^4.6.1",
+    "electron-updater": "^6.1.8",
     "fs.promises": "^0.1.2",
     "latest-version": "^6.0.0",
     "menubar": "^9.1.1",

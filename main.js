@@ -8,31 +8,31 @@ const path = require('path');
 const mb = menubar({
   showDockIcon: true, //hide dock icon from the start !!ENABLE FOR FINAL VERSION
 
-	browserWindow: { 
+  browserWindow: {
 
-    width: 400, 
+    width: 400,
     height: 500,
-    alwaysOnTop: true, 
+    alwaysOnTop: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule: true
 
     },
-    
+
 
   },
-  icon: path.join(__dirname, 'TrayIconTemplate.png'), 
-  
+  icon: path.join(__dirname, 'TrayIconTemplate.png'),
+
 
 });
 
 
 mb.on('ready', () => {
-  
-  
-  mb.showWindow(); 
 
+
+  mb.showWindow();
+  // mb.window.webContents.openDevTools();
   console.log('Started, checking for updates...');
 
   const notification = {
@@ -40,13 +40,13 @@ mb.on('ready', () => {
     body: 'GUPLOAD HAS LAUNCHED - CHECK YOUR MENU BAR'
   }
   new Notification(notification).show()
-  
+
 
 
   // autoUpdater.checkForUpdatesAndNotify(); --- backup backup
 
-  
-  autoUpdater.checkForUpdates(); 
+
+  autoUpdater.checkForUpdates();
 
 });
 
@@ -60,15 +60,19 @@ mb.on('after-hide', () => { //when window is hidden again
   app.dock.hide(); //hide dock icon !!ENABLE FOR FINAL VERSION
 
 
-  
+
 
 });
 
 ipcMain.on('app_version', (event) => {
   event.sender.send('app_version', { version: app.getVersion() }); //reads app version and sends it to main window
-  
+
 });
 
+ipcMain.on('restart-app', () => {
+  app.relaunch();
+  app.exit();
+});
 
 autoUpdater.channel = 'latest';
 autoUpdater.allowDowngrade = false;
@@ -87,14 +91,14 @@ let options = {
 autoUpdater.on('update-downloaded', () => {
   dialog.showMessageBox(options).then((data) => {
 
-    if (data.response === 0){ //restart and apply
+    if (data.response === 0) { //restart and apply
       mb.showWindow();
- 
 
-    }else{
+
+    } else {
 
     }
-    
+
   });
 
   ipcMain.on('app_version', (event) => {
@@ -102,10 +106,10 @@ autoUpdater.on('update-downloaded', () => {
   });
 })
 
-autoUpdater.on('checking-for-update', () => { 
+autoUpdater.on('checking-for-update', () => {
 
   //anything to run when checking for updates? nope
-  
+
 })
 
 let options2 = {
