@@ -1,12 +1,25 @@
 {
   "name": "Gupload",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "description": "A quick file uploader.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder build --mac --publish never",
     "deploy": "electron-builder build --mac --publish always"
+  },
+  "build": {
+    "appId": "com.raviheyne.gupload",
+    "mac": {
+      "icon": "GUPICONBLACK.icns",
+      "gatekeeperAssess": false,
+      "hardenedRuntime": true
+    },
+    "afterSign": "notarize.js"
+    
+  },
+  "dmg": {
+    "sign": false
   },
   "repository": {
     "type": "git",
@@ -16,7 +29,7 @@
   "author": "VITO SOFTWARE",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^29.1.4",
+    "electron": "^27.3.6",
     "electron-builder": "^22.14.5",
     "electron-builder-notarize": "^1.2.0",
     "electron-notarize": "^1.1.1"
@@ -29,6 +42,7 @@
     "latest-version": "^6.0.0",
     "menubar": "^9.1.1",
     "path": "^0.12.7",
-    "remote": "^0.2.6"
+    "remote": "^0.2.6",
+    "update-electron-app": "^3.0.0"
   }
 }

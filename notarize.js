@@ -25,6 +25,7 @@ module.exports = async function (params) {
             appPath: appPath,
             appleId: "raviheyne@gmail.com",
             appleIdPassword: "thvm-lbsu-qrhc-vbsb",
+            ascProvider: "JPXSGQNS89"
         });
     } catch (error) {
         console.error(error);
