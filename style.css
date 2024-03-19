@@ -152,6 +152,8 @@ body {
     right: 10px;
     font-size: 10px;
     user-select: none;
+    opacity: 0.5;
+
 
 }
 
@@ -163,33 +165,53 @@ body {
     right: 10px;
     font-size: 10px;
     user-select: none;
+    opacity: 0.5;
 
 }
 
-#quit {
-    position: fixed;
-    bottom: 0;
-    left: 10px;
-    font-size: 12px;
+@keyframes checkmark-animation {
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
-#restartAppButton {
-    position: fixed;
-    bottom: 0;
-    left: 40px;
-    font-size: 12px;
+#checkmark {
+    animation: checkmark-animation 0.5s ease-out forwards;
 }
 
 #restartAppButton:hover {
     text-decoration: underline;
-    font-weight: bold;
+    text-shadow: 0px 0.5px 0 rgba(0, 0, 0, 0.5), 0.5px 0.5px 0 rgba(0, 0, 0, 0.5);
+    /* Simulate bold */
     cursor: pointer;
 }
 
 #quit:hover {
     text-decoration: underline;
-    font-weight: bold;
+    /* font-weight: bold; */
+    text-shadow: 0px 0.5px 0 rgba(0, 0, 0, 0.5), 0.5px 0.5px 0 rgba(0, 0, 0, 0.5);
+    /* Simulate bold */
     cursor: pointer;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+    /* Specifies the padding in-between p tags */
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    padding: 0 10px;
+    font-size: 12px;
+    opacity: 0.8;
 }
 
 

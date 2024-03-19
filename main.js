@@ -69,6 +69,10 @@ ipcMain.on('app_version', (event) => {
 
 });
 
+ipcMain.on('close-window', () => {
+  mb.hideWindow();
+});
+
 ipcMain.on('restart-app', () => {
   app.relaunch();
   app.exit();

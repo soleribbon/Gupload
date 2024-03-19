@@ -94,9 +94,12 @@
   <br>
   <br>
   <br>
-  <p id="quit" onclick="quit()">quit</p>
-  <p id="restartAppButton">refresh</p>
 
+  <div class="button-container">
+    <p id="restartAppButton">&#10227; refresh</p>
+    <p>|</p>
+    <p id="quit" onclick="quit()">quit</p>
+  </div>
   <p id="version"></p>
   <script>
 
@@ -294,6 +297,8 @@
               timeout = setTimeout(function () {
                 document.getElementById("copyButton").innerHTML = "Copy Link";
                 document.getElementById("copyButton").style.backgroundColor = "white";
+                ipcRenderer.send('close-window');
+
               }, 3000);
             });
 
